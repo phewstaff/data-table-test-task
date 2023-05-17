@@ -46,15 +46,17 @@ export const columns: ColumnDef<User>[] = [
       );
     },
   },
+
   {
     accessorKey: "first_name",
-    header: "First name",
+    header: "First name", // we can change header of each column to add functionality if we need
   },
 
   {
     accessorKey: "last_name",
     header: "Last name",
   },
+
   {
     accessorKey: "email",
     header: ({ column }) => {

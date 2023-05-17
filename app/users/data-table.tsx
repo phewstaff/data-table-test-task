@@ -4,13 +4,15 @@ import React from "react";
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"; // this is  library with which we can easily build Lightweight and extensible data tables for React
+} from "@tanstack/react-table"; // this is the library with which we can easily build Lightweight and extensible data tables for React
 
 import {
   Table,
@@ -22,6 +24,7 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@components/ui/input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,6 +36,9 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]); // sorting state for emails of users
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  ); //filtering state for emails
 
   const table = useReactTable({
     data,
@@ -41,13 +47,27 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -119,6 +139,10 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+
+/* Overall, the DataTable component encapsulates the logic and rendering of a customizable data table with sorting,
+ filtering, and pagination capabilities. It relies on the @tanstack/react-table library and custom UI components for its implementation.
+ */
 
 /*  <DataTable /> can be used in multiple places, this is the component we could make reusable 
 by extracting it to components/ui/data-table.tsx. */
