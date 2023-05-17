@@ -13,12 +13,7 @@ type Data = {
 
 async function getData(): Promise<Data> {
   const res = await fetch("https://reqres.in/api/users/");
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  // Recommendation: handle errors
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
 
