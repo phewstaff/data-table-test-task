@@ -12,7 +12,7 @@ type Data = {
 };
 
 async function getData(): Promise<Data> {
-  const res = await fetch("https://reqres.in/api/users/");
+  const res = await fetch("https://reqres.in/api/users?page=1&per_page=12");
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -22,7 +22,6 @@ async function getData(): Promise<Data> {
 
 export default async function UsersPage() {
   const data = await getData();
-  console.log(data);
 
   return (
     <div className="container mx-auto py-10 w">

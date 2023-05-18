@@ -28,7 +28,7 @@ export type User = {
 export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "avatar",
-    header: () => <div className="text-left">Avatar</div>,
+    header: () => <div className="text-left">Avatar</div>, // we can change header of each column to add functionality if we need
     cell: ({ row }) => {
       const avatar = row.original.avatar;
 
@@ -49,7 +49,7 @@ export const columns: ColumnDef<User>[] = [
 
   {
     accessorKey: "first_name",
-    header: "First name", // we can change header of each column to add functionality if we need
+    header: "First name",
   },
 
   {
@@ -63,7 +63,8 @@ export const columns: ColumnDef<User>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} //This will automatically sort the table (ascending and descending) when the user toggles on the header cell. Email
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} //This will automatically sort the table
+          //(ascending and descending) when user toggles on the header cell.Email
         >
           Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -94,8 +95,8 @@ export const columns: ColumnDef<User>[] = [
               Copy email of user
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Update user</DropdownMenuItem>
-            <DropdownMenuItem>Delete user</DropdownMenuItem>
+            <DropdownMenuItem>Do something 1</DropdownMenuItem>
+            <DropdownMenuItem>Do something 2</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
