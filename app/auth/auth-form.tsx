@@ -6,6 +6,8 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -19,12 +21,9 @@ import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { fetcher } from "@helpers/fetcher";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const formSchema = z.object({
-  // username: z.string().min(4, {
-  //   message: "Username must be at least 4 characters.",
-  // }),
-
   email: z.string().min(6, {
     message: "email must be at least 6 characters.",
   }),
@@ -37,14 +36,16 @@ const formSchema = z.object({
 export function AuthForm() {
   const { mutate } = useSWRConfig();
   const { push } = useRouter();
+  const { toast } = useToast();
 
-  // 1. Define your form.
+  // 1. Defining our form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  // 2. Define a submit handler.
+  // 2. Defining a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // 3. Sending post req to sign in
     mutate(
       "https://reqres.in/api/login",
       fetcher("https://reqres.in/api/login", {
@@ -55,12 +56,24 @@ export function AuthForm() {
     ).then((res) => {
       if (res.token) {
         document.cookie = `token=${res.token}`;
+        toast({
+          title: values.email,
+          description: "Вы успешно вошли в аккаунт",
+        });
+
+        // 4. after checking token we can redirect user to the home page
         push("/");
       } else {
-        console.log(res.error);
       }
     });
   }
+
+  useEffect(() => {
+    toast({
+      title: "Вы не авторизованы",
+      description: "Пожалуйста, авторизуйтесь",
+    });
+  }, []);
 
   return (
     <Form {...form}>
@@ -68,25 +81,6 @@ export function AuthForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-[80%] space-y-8 md:w-1/2"
       >
-        {/* <FormField
-          control={form.control}
-          name="username"
-          render={() => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-
-              <FormControl>
-                <Input
-                  placeholder="Введите имя пользователя"
-                  {...form.register("username")}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
         <FormField
           control={form.control}
           name="email"

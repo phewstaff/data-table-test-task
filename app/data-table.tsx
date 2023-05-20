@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { cookies } from "next/headers";
+import { useRouter } from "next/navigation";
 
 import {
   ColumnDef,
@@ -33,7 +33,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@components/ui/input";
-import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -80,7 +79,7 @@ export function DataTable<TData, TValue>({
   }, [token]); // we are setting that useEffect to run each time when token changes
 
   return (
-    <div>
+    <>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."
@@ -96,6 +95,7 @@ export function DataTable<TData, TValue>({
               Columns
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -168,6 +168,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"
@@ -187,7 +188,7 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
-    </div>
+    </>
   );
 }
 
