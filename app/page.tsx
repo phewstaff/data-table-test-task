@@ -2,6 +2,7 @@ import { TableCaption, TableHead, TableRow } from "@components/ui/table";
 import { Table } from "lucide-react";
 import { DataTable } from "./data-table";
 import { User, columns } from "./columns";
+import { cookies } from "next/headers";
 
 type Data = {
   page: number;
@@ -23,9 +24,12 @@ async function getData(): Promise<Data> {
 export default async function UsersPage() {
   const data = await getData();
 
+  const cookieStore = cookies();
+  const token = cookieStore.get("token");
+
   return (
-    <div className="container mx-auto py-10 w">
-      <DataTable columns={columns} data={data.data} />
+    <div className="w container mx-auto py-10">
+      <DataTable columns={columns} data={data.data} token={token?.value} />
     </div>
   );
 }

@@ -18,6 +18,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { fetcher } from "@helpers/fetcher";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   // username: z.string().min(4, {
@@ -35,6 +36,7 @@ const formSchema = z.object({
 
 export function AuthForm() {
   const { mutate } = useSWRConfig();
+  const { push } = useRouter();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +55,7 @@ export function AuthForm() {
     ).then((res) => {
       if (res.token) {
         document.cookie = `token=${res.token}`;
+        push("/");
       } else {
         console.log(res.error);
       }

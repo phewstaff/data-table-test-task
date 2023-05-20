@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { cookies } from "next/headers";
 
 import {
   ColumnDef,
@@ -32,13 +33,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@components/ui/input";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  token: string | undefined;
 }
 
 export function DataTable<TData, TValue>({
+  token,
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -66,6 +70,14 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      push("/auth"); // if user not authorized we will push him to auth page
+    }
+  }, [token]); // we are setting that useEffect to run each time when token changes
 
   return (
     <div>
