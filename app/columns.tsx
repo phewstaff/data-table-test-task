@@ -33,7 +33,7 @@ export const columns: ColumnDef<User>[] = [
       const avatar = row.original.avatar;
 
       return (
-        <div className="relative flex h-10 w-10 shrink-0 overflow-hidden overflow-hidden rounded-full rounded-full">
+        <div className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full ">
           <Image
             className="aspect-square h-full w-full"
             loader={() => avatar + "?w=100"}

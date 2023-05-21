@@ -12,6 +12,9 @@ type Data = {
 };
 
 async function getData(): Promise<Data> {
+  // Simulate a delay for 1 second to see if our skeleton loading works fine
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const res = await fetch(`${baseURL}users?page=1&per_page=12`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
