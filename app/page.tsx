@@ -3,6 +3,8 @@ import { User, columns } from "./columns";
 import { cookies } from "next/headers";
 import { baseURL } from "@constants";
 
+// This is home page which renders on the server and only after receiving the data sends the correct html document to client
+
 type Data = {
   page: number;
   per_page: number;
@@ -30,7 +32,12 @@ export default async function UsersPage() {
 
   return (
     <div className="w container mx-auto py-10">
-      <DataTable columns={columns} data={data.data} token={token?.value} />
+      <DataTable
+        columns={columns}
+        data={data.data}
+        token={token?.value}
+        skeleton={false}
+      />
     </div>
   );
 }

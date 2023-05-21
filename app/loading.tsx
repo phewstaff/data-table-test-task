@@ -55,6 +55,7 @@ export default function Loading() {
       avatar: "nrbv.m",
     },
   ];
+
   return (
     <div className="w container mx-auto py-10">
       <DataTable columns={columns} data={fakeData} skeleton={true} />

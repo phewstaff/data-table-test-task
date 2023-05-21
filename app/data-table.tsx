@@ -33,7 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"; // all ui components were made by enthusiast - shad/cn and all of them are headless
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

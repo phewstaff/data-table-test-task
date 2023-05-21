@@ -43,7 +43,7 @@ export function AuthForm({
   toastSuccessMessage,
   buttonText,
 }: AuthProps) {
-  const { mutate } = useSWRConfig();
+  const { mutate } = useSWRConfig(); // function provided by the swr library which can allow us to send mutation requests on client side
   const { push } = useRouter();
   const { toast } = useToast();
 
@@ -54,7 +54,7 @@ export function AuthForm({
 
   // 2. Defining a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // 3. Sending post req to sign in
+    // 3. Sending post req to sign in or sign up depending on which props were passed in
     mutate(
       `${baseURL}${endpoint}`,
       fetcher(`${baseURL}${endpoint}`, {
@@ -132,7 +132,7 @@ export function AuthForm({
           )}
         />
 
-        <Button className="w-full " type="submit">
+        <Button className="w-full" type="submit">
           {buttonText}
         </Button>
       </form>

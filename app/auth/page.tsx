@@ -7,7 +7,7 @@ export default async function AuthPage() {
     <div className=" container mx-auto flex h-screen w-full flex-col items-center justify-center">
       <AuthForm
         endpoint={"login"}
-        buttonText={"Sign In"}
+        buttonText={"Войти"}
         toastSuccessMessage={"вошли в аккаунт"}
       />
 
@@ -16,7 +16,7 @@ export default async function AuthPage() {
 
         <Link className="cursor-pointer px-1" href={"/sign-up"}>
           <p className="whitespace-nowrap text-sm text-muted-foreground">
-            Or sign up if you don't have account
+            Или зарегиструйтесь, если вы еще не зарегистрированы
           </p>
         </Link>
 
