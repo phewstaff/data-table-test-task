@@ -1,6 +1,7 @@
 import { DataTable } from "./data-table";
 import { User, columns } from "./columns";
 import { cookies } from "next/headers";
+import { baseURL } from "@constants";
 
 type Data = {
   page: number;
@@ -11,7 +12,7 @@ type Data = {
 };
 
 async function getData(): Promise<Data> {
-  const res = await fetch("https://reqres.in/api/users?page=1&per_page=12");
+  const res = await fetch(`${baseURL}users?page=1&per_page=12`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -21,7 +22,6 @@ async function getData(): Promise<Data> {
 
 export default async function UsersPage() {
   const data = await getData();
-
   const cookieStore = cookies();
   const token = cookieStore.get("token");
 

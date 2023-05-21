@@ -20,6 +20,7 @@ import { useSWRConfig } from "swr";
 import { fetcher } from "@helpers/fetcher";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { baseURL } from "@constants";
 
 const formSchema = z.object({
   email: z.string().min(6, {
@@ -55,8 +56,8 @@ export function AuthForm({
   function onSubmit(values: z.infer<typeof formSchema>) {
     // 3. Sending post req to sign in
     mutate(
-      "https://reqres.in/api/register",
-      fetcher(`https://reqres.in/api/${endpoint}`, {
+      `${baseURL}${endpoint}`,
+      fetcher(`${baseURL}${endpoint}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(values),

@@ -10,13 +10,16 @@ export default async function AuthPage() {
         buttonText={"Sign In"}
         toastSuccessMessage={"вошли в аккаунт"}
       />
+
       <section className="my-4 flex w-[80%] items-center justify-center overflow-hidden md:w-1/2">
         <Separator />
+
         <Link className="cursor-pointer px-1" href={"/sign-up"}>
           <p className="whitespace-nowrap text-sm text-muted-foreground">
             Or sign up if you don't have account
           </p>
         </Link>
+
         <Separator />
       </section>
     </div>
