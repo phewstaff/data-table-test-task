@@ -76,7 +76,7 @@ export function DataTable<TData, TValue>({
   const { push } = useRouter();
 
   useEffect(() => {
-    if (!token) {
+    if (!token && !skeleton) {
       push("/auth"); // if user not authorized we will push him to auth page
     }
   }, [token]); // we are setting that useEffect to run each time when token changes
@@ -159,7 +159,7 @@ export function DataTable<TData, TValue>({
                     ))}
                   </TableRow>
                 ) : (
-                  <TableRow>
+                  <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         <Skeleton className="h-10 w-full py-4" />
