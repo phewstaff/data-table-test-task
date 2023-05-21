@@ -1,5 +1,3 @@
-import { TableCaption, TableHead, TableRow } from "@components/ui/table";
-import { Table } from "lucide-react";
 import { DataTable } from "./data-table";
 import { User, columns } from "./columns";
 import { cookies } from "next/headers";

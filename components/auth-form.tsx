@@ -1,22 +1,20 @@
 "use client";
 
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { useForm } from "react-hook-form";
 import { useSWRConfig } from "swr";
 import { fetcher } from "@helpers/fetcher";
@@ -33,7 +31,17 @@ const formSchema = z.object({
   }),
 });
 
-export function AuthForm() {
+interface AuthProps {
+  endpoint: string;
+  toastSuccessMessage: string;
+  buttonText: string;
+}
+
+export function AuthForm({
+  endpoint,
+  toastSuccessMessage,
+  buttonText,
+}: AuthProps) {
   const { mutate } = useSWRConfig();
   const { push } = useRouter();
   const { toast } = useToast();
@@ -47,8 +55,8 @@ export function AuthForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // 3. Sending post req to sign in
     mutate(
-      "https://reqres.in/api/login",
-      fetcher("https://reqres.in/api/login", {
+      "https://reqres.in/api/register",
+      fetcher(`https://reqres.in/api/${endpoint}`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(values),
@@ -58,12 +66,16 @@ export function AuthForm() {
         document.cookie = `token=${res.token}`;
         toast({
           title: values.email,
-          description: "Вы успешно вошли в аккаунт",
+          description: `Вы успешно ${toastSuccessMessage}`,
         });
 
         // 4. after checking token we can redirect user to the home page
         push("/");
       } else {
+        toast({
+          variant: "destructive",
+          title: res.error,
+        });
       }
     });
   }
@@ -71,7 +83,8 @@ export function AuthForm() {
   useEffect(() => {
     toast({
       title: "Вы не авторизованы",
-      description: "Пожалуйста, авторизуйтесь",
+      description:
+        "Пожалуйста, авторизуйтесь или зарегиструйте новую учетную запись",
     });
   }, []);
 
@@ -119,7 +132,7 @@ export function AuthForm() {
         />
 
         <Button className="w-full " type="submit">
-          Войти
+          {buttonText}
         </Button>
       </form>
     </Form>
