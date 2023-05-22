@@ -1,4 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Description
+
+Это тестовое задание, которое подразумевает собой разработку таблицы с данными, поступающими из стороннего API (В данном случае используется Reqres.in). Есть страницы авторизации и регистрации, а также главная страница с непосредственно таблицей, которая в моем случае отображает список пользователей. Попытался совместить тестовое задание и обучение новым технологиям, в данном случае я обучался в процессе написания приложения Next js и Server Side Rendering, который развивает команда Next js , react-table и headless ui компонентам, которыми делится энтузиаст shad/cn.
+
+## Technologies used
+
+Проект собран с помощью фреймворка для React - Next js.
+Для реализации функционала и UI непосредственно самой таблицы используется библиотека tanstack/react-table.
+Цветовая, стилевая UI реализация построена с помощью компонентов от shad/cn, которые построены с помощью Tailwind css
+Базовая верстка так же реализована с использованием фреймворка Tailwind css.
+Стиль кода, по которому написано приложение - Airbnb
+
+## Features
+
+Таблица полностью кастомизуемая, так же как и внешний вид компонентов.
+Есть возможность скрыть какие-нибудь столбцы или скрыть все вовсе.
+Реализована пагинация с навигацией на следующую и предыдущую страницу.
+Возможность поиска пользователя из таблицы по Email.
+Возможность сортировки Email с начала алфавита или с конца.
+При клике на кнопку Actions можно быстро скопировать Email выбранного пользователя.
+Хотел сначала в Actions добавить функцию серверного удаления и редактирования пользователя, но только потом заметил, что reqres API дает только преднастроенное количество данных и не позволяет наполнять своими
 
 ## Getting Started
 
@@ -15,20 +35,3 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
