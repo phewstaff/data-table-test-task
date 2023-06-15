@@ -1,4 +1,7 @@
 ## [Demo](https://data-table-test-task.vercel.app/auth) 
+email: eve.holt@reqres.in 
+пароль: pistol
+
 
 ## Description
 
